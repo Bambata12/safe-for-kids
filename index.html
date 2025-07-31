@@ -7,243 +7,370 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#3b82f6">
+    <meta name="description" content="Safe and secure child check-in system for schools">
+    <link rel="icon" type="image/svg+xml" href="placeholder-logo.svg">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="preload" href="app.js" as="script">
+    
+    <!-- Add some beautiful fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="app">
-        <!-- Login/Signup Page -->
-        <div id="loginPage" class="page active">
-            <div class="container">
-                <div class="header">
-                    <div class="logo">
-                        <span class="icon">👶</span>
-                        <h1>KidCheck</h1>
+    <!-- Login Page -->
+    <div id="loginPage" class="page active">
+        <div class="container">
+            <!-- Header with enhanced styling -->
+            <div class="header">
+                <div class="logo">
+                    <div class="logo-icon">👶</div>
+                    <h1>KidCheck</h1>
+                </div>
+                <button class="theme-toggle" aria-label="Toggle theme">🌙</button>
+            </div>
+
+            <!-- Enhanced Hero Section -->
+            <div class="hero">
+                <div class="hero-badge">
+                    <span class="badge-icon">🛡️</span>
+                    <span>Trusted by 1000+ Schools</span>
+                </div>
+                <h2>Safe & Secure Child Check-in System</h2>
+                <p>Keep track of your child's school attendance with real-time updates and secure communication between parents and administrators.</p>
+                
+                <!-- Feature highlights -->
+                <div class="hero-features">
+                    <div class="hero-feature">
+                        <span class="feature-icon">⚡</span>
+                        <span>Instant Updates</span>
                     </div>
-                    <button id="themeToggle" class="theme-toggle">🌙</button>
+                    <div class="hero-feature">
+                        <span class="feature-icon">🔒</span>
+                        <span>Secure & Private</span>
+                    </div>
+                    <div class="hero-feature">
+                        <span class="feature-icon">📱</span>
+                        <span>Mobile Friendly</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alert Messages -->
+            <div id="errorAlert" class="alert error hidden" role="alert"></div>
+            <div id="successAlert" class="alert success hidden" role="alert"></div>
+
+            <!-- Enhanced Features Grid -->
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">👨‍👩‍👧‍👦</div>
+                    <h3>For Parents</h3>
+                    <p>Request check-ins and receive instant updates about your child's attendance status</p>
+                    <div class="feature-highlight">Real-time notifications</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏫</div>
+                    <h3>For Administrators</h3>
+                    <p>Manage check-in requests efficiently and provide quick feedback to parents</p>
+                    <div class="feature-highlight">Easy management</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">✅</div>
+                    <h3>Real-time Updates</h3>
+                    <p>Get instant notifications and updates about your child's school attendance</p>
+                    <div class="feature-highlight">Always connected</div>
+                </div>
+            </div>
+
+            <!-- Enhanced Tabs -->
+            <div class="tabs">
+                <div class="tab-buttons">
+                    <button class="tab-button active" data-tab="parent">
+                        <span class="tab-icon">👨‍👩‍👧‍👦</span>
+                        Parent Access
+                    </button>
+                    <button class="tab-button" data-tab="admin">
+                        <span class="tab-icon">🏫</span>
+                        Admin Access
+                    </button>
                 </div>
 
-                <div class="hero">
-                    <h2>Safe & Secure Child Check-in System</h2>
-                    <p>Keep track of your child's school attendance with real-time updates and secure communication between parents and administrators.</p>
-                </div>
-
-                <div id="errorAlert" class="alert error hidden"></div>
-                <div id="successAlert" class="alert success hidden"></div>
-
-                <div class="features">
-                    <div class="feature-card">
-                        <span class="feature-icon">👥</span>
-                        <h3>For Parents</h3>
-                        <p>Request check-ins and receive updates about your child</p>
-                    </div>
-                    <div class="feature-card">
-                        <span class="feature-icon">🛡️</span>
-                        <h3>For Administrators</h3>
-                        <p>Manage check-in requests and provide feedback to parents</p>
-                    </div>
-                    <div class="feature-card">
-                        <span class="feature-icon">✅</span>
-                        <h3>Real-time Updates</h3>
-                        <p>Get instant notifications and updates</p>
-                    </div>
-                </div>
-
-                <div class="tabs">
-                    <div class="tab-buttons">
-                        <button class="tab-button active" data-tab="parent">Parent Access</button>
-                        <button class="tab-button" data-tab="admin">Admin Access</button>
-                    </div>
-
-                    <div class="tab-content">
-                        <div id="parentTab" class="tab-panel active">
-                            <div class="auth-forms">
-                                <div class="auth-card">
+                <div class="tab-content">
+                    <!-- Parent Tab -->
+                    <div id="parentTab" class="tab-panel active">
+                        <div class="auth-forms">
+                            <!-- Parent Login -->
+                            <div class="auth-card">
+                                <div class="auth-header">
+                                    <div class="auth-icon">🔑</div>
                                     <h3>Parent Login</h3>
                                     <p>Access your dashboard to manage check-in requests</p>
-                                    <form id="parentLoginForm">
-                                        <div class="form-group">
-                                            <label for="loginEmail">Email</label>
-                                            <input type="email" id="loginEmail" name="email" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="loginPassword">Password</label>
-                                            <input type="password" id="loginPassword" name="password" required>
-                                        </div>
-                                        <button type="submit" class="btn primary full-width">Sign In</button>
-                                    </form>
                                 </div>
-
-                                <div class="auth-card">
-                                    <h3>Parent Sign Up</h3>
-                                    <p>Create an account to start monitoring your child</p>
-                                    <form id="parentSignupForm">
-                                        <div class="form-group">
-                                            <label for="signupName">Full Name</label>
-                                            <input type="text" id="signupName" name="name" required>
+                                <form id="parentLoginForm" class="auth-form">
+                                    <div class="form-group">
+                                        <label for="login-email">Email Address</label>
+                                        <input id="login-email" name="email" type="email" required placeholder="Enter your email">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="login-password">Password</label>
+                                        <input id="login-password" name="password" type="password" required placeholder="Enter your password">
+                                    </div>
+                                    <button type="submit" class="btn primary full-width">
+                                        <span class="btn-text">Sign In</span>
+                                        <div class="btn-loader hidden">
+                                            <div class="spinner"></div>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="signupEmail">Email</label>
-                                            <input type="email" id="signupEmail" name="email" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="signupPassword">Password</label>
-                                            <input type="password" id="signupPassword" name="password" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="childName">Child's Name</label>
-                                            <input type="text" id="childName" name="childName" required>
-                                        </div>
-                                        <button type="submit" class="btn primary full-width">Sign Up</button>
-                                    </form>
+                                    </button>
+                                </form>
+                                <div class="auth-footer">
+                                    <p>Demo: Use any email/password combination</p>
                                 </div>
                             </div>
-                        </div>
 
-                        <div id="adminTab" class="tab-panel">
-                            <div class="auth-card centered">
-                                <h3>Administrator Login</h3>
-                                <p>Access the admin panel to manage check-in requests</p>
-                                <form id="adminLoginForm">
+                            <!-- Parent Signup -->
+                            <div class="auth-card">
+                                <div class="auth-header">
+                                    <div class="auth-icon">✨</div>
+                                    <h3>Create Account</h3>
+                                    <p>Join thousands of parents using KidCheck</p>
+                                </div>
+                                <form id="parentSignupForm" class="auth-form">
                                     <div class="form-group">
-                                        <label for="adminName">Admin Name</label>
-                                        <input type="text" id="adminName" name="name" placeholder="Enter your name" required>
+                                        <label for="signup-name">Full Name</label>
+                                        <input id="signup-name" name="name" required placeholder="Enter your full name">
                                     </div>
                                     <div class="form-group">
-                                        <label for="adminPassword">Admin Password</label>
-                                        <input type="password" id="adminPassword" name="password" placeholder="Enter admin password" required>
+                                        <label for="signup-email">Email Address</label>
+                                        <input id="signup-email" name="email" type="email" required placeholder="Enter your email">
                                     </div>
-                                    <button type="submit" class="btn primary full-width">Admin Sign In</button>
+                                    <div class="form-group">
+                                        <label for="signup-password">Password</label>
+                                        <input id="signup-password" name="password" type="password" required placeholder="Create a password">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="child-name">Child's Name</label>
+                                        <input id="child-name" name="childName" required placeholder="Enter your child's name">
+                                    </div>
+                                    <button type="submit" class="btn primary full-width">
+                                        <span class="btn-text">Create Account</span>
+                                        <div class="btn-loader hidden">
+                                            <div class="spinner"></div>
+                                        </div>
+                                    </button>
                                 </form>
                             </div>
                         </div>
                     </div>
+
+                    <!-- Admin Tab -->
+                    <div id="adminTab" class="tab-panel">
+                        <div class="auth-card centered">
+                            <div class="auth-header">
+                                <div class="auth-icon">🛡️</div>
+                                <h3>Administrator Login</h3>
+                                <p>Access the admin panel to manage check-in requests</p>
+                            </div>
+                            <form id="adminLoginForm" class="auth-form">
+                                <div class="form-group">
+                                    <label for="admin-name">Admin Name</label>
+                                    <input id="admin-name" name="name" type="text" placeholder="Enter your name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="admin-password">Admin Password</label>
+                                    <input id="admin-password" name="password" type="password" placeholder="Enter admin password" required>
+                                </div>
+                                <button type="submit" class="btn primary full-width">
+                                    <span class="btn-text">Admin Sign In</span>
+                                    <div class="btn-loader hidden">
+                                        <div class="spinner"></div>
+                                    </div>
+                                </button>
+                            </form>
+                            <div class="auth-footer">
+                                <p>Demo password: <strong>123456</strong></p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Parent Dashboard -->
-        <div id="parentDashboard" class="page">
-            <div class="container">
-                <div class="dashboard-header">
-                    <div class="header-left">
-                        <span class="icon">👶</span>
-                        <div>
-                            <h1>Parent Dashboard</h1>
-                            <p id="parentWelcome">Welcome, Parent</p>
-                        </div>
-                    </div>
-                    <div class="header-right">
-                        <span id="connectionStatus" class="badge online">📶 Online</span>
-                        <button id="parentThemeToggle" class="theme-toggle">🌙</button>
-                        <button id="parentLogout" class="btn outline">🚪 Logout</button>
+    <!-- Parent Dashboard -->
+    <div id="parentDashboard" class="page">
+        <div class="container">
+            <!-- Enhanced Dashboard Header -->
+            <div class="dashboard-header">
+                <div class="header-left">
+                    <div class="dashboard-icon">👶</div>
+                    <div class="header-info">
+                        <h1>Parent Dashboard</h1>
+                        <p id="parentWelcome">Welcome, Parent</p>
                     </div>
                 </div>
+                <div class="header-right">
+                    <div id="parentConnectionStatus" class="badge online">📶 Online</div>
+                    <button class="theme-toggle" aria-label="Toggle theme">🌙</button>
+                    <button id="parentLogout" class="btn outline">
+                        <span>🚪</span>
+                        Logout
+                    </button>
+                </div>
+            </div>
 
-                <div id="parentErrorAlert" class="alert error hidden"></div>
+            <!-- Alert for parent dashboard -->
+            <div id="parentErrorAlert" class="alert error hidden" role="alert"></div>
 
-                <div class="dashboard-grid">
-                    <div class="card">
-                        <div class="card-header">
+            <!-- Enhanced Dashboard Grid -->
+            <div class="dashboard-grid">
+                <!-- Child Management Card -->
+                <div class="card enhanced">
+                    <div class="card-header">
+                        <div class="card-icon">👨‍👩‍👧‍👦</div>
+                        <div>
                             <h3>Manage Children</h3>
                             <p>Add your children and their grades</p>
                         </div>
-                        <div class="card-content">
-                            <div id="childrenList"></div>
-                            <button id="addChildBtn" class="btn outline full-width">➕ Add Another Child</button>
-                        </div>
                     </div>
-
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>Request Status Check</h3>
-                            <p>Ask the school to confirm your child's attendance status</p>
-                        </div>
-                        <div class="card-content">
-                            <div class="form-group">
-                                <label for="childSelect">Select Child</label>
-                                <select id="childSelect">
-                                    <option value="">Choose a child</option>
-                                </select>
-                            </div>
-                            <button id="checkinBtn" class="btn primary full-width">📤 Ask: Has my child checked IN?</button>
-                            <button id="checkoutBtn" class="btn outline full-width">📤 Ask: Has my child checked OUT?</button>
-                            <p class="help-text">The school admin will confirm if your child has actually checked in/out and provide the exact time.</p>
-                        </div>
+                    <div class="card-content">
+                        <div id="childrenList" class="children-list"></div>
+                        <button id="addChildBtn" class="btn outline full-width add-child-btn">
+                            <span>➕</span>
+                            Add Another Child
+                        </button>
                     </div>
                 </div>
 
-                <div class="card">
+                <!-- Request Status Card -->
+                <div class="card enhanced">
                     <div class="card-header">
-                        <h3>Status Requests & Responses</h3>
-                        <p>Your requests to the school and their responses</p>
+                        <div class="card-icon">📋</div>
+                        <div>
+                            <h3>Request Status Check</h3>
+                            <p>Ask the school to confirm your child's attendance</p>
+                        </div>
                     </div>
                     <div class="card-content">
-                        <div id="parentRequestsList"></div>
+                        <div class="form-group">
+                            <label for="childSelect">Select Child</label>
+                            <select id="childSelect" class="enhanced-select">
+                                <option value="">Choose a child</option>
+                            </select>
+                        </div>
+
+                        <div class="request-buttons">
+                            <button id="checkinBtn" class="btn success full-width request-btn">
+                                <span class="btn-icon">📥</span>
+                                <span class="btn-text">Ask: Has my child checked IN?</span>
+                            </button>
+                            <button id="checkoutBtn" class="btn warning full-width request-btn">
+                                <span class="btn-icon">📤</span>
+                                <span class="btn-text">Ask: Has my child checked OUT?</span>
+                            </button>
+                        </div>
+
+                        <div class="help-text">
+                            <p>💡 The school admin will confirm if your child has actually checked in/out and provide the exact time.</p>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <!-- Requests History -->
+            <div class="card enhanced">
+                <div class="card-header">
+                    <div class="card-icon">📊</div>
+                    <div>
+                        <h3>Status Requests & Responses</h3>
+                        <p>Your requests to the school and their responses</p>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div id="parentRequestsList" class="requests-list"></div>
+                </div>
+            </div>
         </div>
+    </div>
 
-        <!-- Admin Dashboard -->
-        <div id="adminDashboard" class="page">
-            <div class="container">
-                <div class="dashboard-header">
-                    <div class="header-left">
-                        <span class="icon">🛡️</span>
+    <!-- Admin Dashboard -->
+    <div id="adminDashboard" class="page">
+        <div class="container">
+            <!-- Enhanced Admin Header -->
+            <div class="dashboard-header">
+                <div class="header-left">
+                    <div class="dashboard-icon">🏫</div>
+                    <div class="header-info">
+                        <h1>Admin Dashboard</h1>
+                        <p id="adminWelcome">Welcome, Admin</p>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div id="adminConnectionStatus" class="badge online">📶 Online</div>
+                    <button class="theme-toggle" aria-label="Toggle theme">🌙</button>
+                    <button id="adminLogout" class="btn outline">
+                        <span>🚪</span>
+                        Logout
+                    </button>
+                </div>
+            </div>
+
+            <!-- Alert for admin dashboard -->
+            <div id="adminErrorAlert" class="alert error hidden" role="alert"></div>
+
+            <!-- Enhanced Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card pending">
+                    <div class="stat-icon">⏰</div>
+                    <div class="stat-info">
+                        <div class="stat-number" id="pendingCount">0</div>
+                        <div class="stat-label">Pending Requests</div>
+                    </div>
+                </div>
+                <div class="stat-card total">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-info">
+                        <div class="stat-number" id="totalCount">0</div>
+                        <div class="stat-label">Total Requests</div>
+                    </div>
+                </div>
+                <div class="stat-card responded">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-info">
+                        <div class="stat-number" id="respondedCount">0</div>
+                        <div class="stat-label">Responded</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Admin Cards Grid -->
+            <div class="dashboard-grid">
+                <!-- Pending Requests -->
+                <div class="card enhanced">
+                    <div class="card-header">
+                        <div class="card-icon">⏰</div>
                         <div>
-                            <h1>School Admin Dashboard</h1>
-                            <p id="adminWelcome">Welcome, Admin</p>
+                            <h3>Pending Status Requests</h3>
+                            <p>Parent requests waiting for your response</p>
                         </div>
-                    </div>
-                    <div class="header-right">
-                        <span id="adminConnectionStatus" class="badge online">📶 Online</span>
-                        <button id="adminThemeToggle" class="theme-toggle">🌙</button>
-                        <button id="adminLogout" class="btn outline">🚪 Logout</button>
-                    </div>
-                </div>
-
-                <div id="adminErrorAlert" class="alert error hidden"></div>
-
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-icon">⏰</div>
-                        <div class="stat-content">
-                            <div class="stat-number" id="pendingCount">0</div>
-                            <div class="stat-label">Pending Status Requests</div>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">👥</div>
-                        <div class="stat-content">
-                            <div class="stat-number" id="totalCount">0</div>
-                            <div class="stat-label">Total Requests</div>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">✅</div>
-                        <div class="stat-content">
-                            <div class="stat-number" id="respondedCount">0</div>
-                            <div class="stat-label">Responded Today</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        <h3>Parent Status Requests</h3>
-                        <p>Parents are asking you to confirm their children's check-in/out status</p>
                     </div>
                     <div class="card-content">
-                        <div id="pendingRequestsList"></div>
+                        <div id="pendingRequestsList" class="requests-list"></div>
                     </div>
                 </div>
 
-                <div class="card">
+                <!-- Processed Requests -->
+                <div class="card enhanced">
                     <div class="card-header">
-                        <h3>Response History</h3>
-                        <p>Status confirmations you've sent to parents</p>
+                        <div class="card-icon">📋</div>
+                        <div>
+                            <h3>Recent Responses</h3>
+                            <p>Your recent status confirmations</p>
+                        </div>
                     </div>
                     <div class="card-content">
-                        <div id="processedRequestsList"></div>
+                        <div id="processedRequestsList" class="requests-list"></div>
                     </div>
                 </div>
             </div>

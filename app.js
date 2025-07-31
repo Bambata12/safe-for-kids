@@ -200,8 +200,10 @@ async function handleParentLogin(event) {
       localStorage.setItem("userName", result.user.name)
       localStorage.setItem("userType", "parent")
 
+      // Immediate redirect without delay
       showPage("parentDashboard")
       initParentDashboard()
+      hideAlert("errorAlert")
     } else {
       showAlert("errorAlert", result.error)
     }
@@ -242,7 +244,7 @@ async function handleParentSignup(event) {
 
         showPage("parentDashboard")
         initParentDashboard()
-      }, 2000)
+      }, 500) // Reduced from 2000ms to 500ms
     } else {
       showAlert("errorAlert", result.error)
     }
@@ -268,8 +270,10 @@ async function handleAdminLogin(event) {
     localStorage.setItem("isAdmin", "true")
     localStorage.setItem("adminName", name)
 
+    // Immediate redirect
     showPage("adminDashboard")
     initAdminDashboard()
+    hideAlert("errorAlert")
   } else {
     showAlert("errorAlert", "Invalid admin credentials. Please check your name and password.")
   }
