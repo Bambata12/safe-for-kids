@@ -1,0 +1,25 @@
+# KidCheck Python Backend Requirements
+# Install with: pip install -r requirements.txt
+
+# Web Framework
+Flask==2.3.3
+Flask-CORS==4.0.0
+
+# Database
+sqlite3
+
+# Data Analysis
+pandas==2.1.3
+numpy==1.25.2
+matplotlib==3.8.2
+seaborn==0.13.0
+
+# Security
+hashlib
+secrets
+
+# Utilities
+pathlib
+datetime
+json
+os
